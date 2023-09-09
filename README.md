@@ -27,7 +27,7 @@ You can clone project to your local machine.
 
 For building and training doc2vec model use:
 ```
-python.exe .\main.py --alpha=0.002 --vec_size=100 --num_epochs=100
+python.exe .\main.py --alpha=0.002 --vec_size=50 --num_epochs=10
 ```
 For testing model use:
 ```
