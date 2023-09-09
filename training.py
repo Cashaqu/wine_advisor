@@ -4,6 +4,19 @@ from utils import ExecutionTime
 
 
 def build_model(max_epochs, vec_size, alpha, tagged, is_saved=True):
+    """
+    Initializes doc2vec model and trains it.
+        Args:
+            max_epochs: max epochs for training
+            vec_size: how much size vector for representation sentence
+            is_saved: if True, list of summary will be saved
+            alpha: learning rate in begin
+            tagged:
+            is_saved: is_saved: if True, model will be saved
+        Return:
+            Model doc2vec.
+    """
+
     model = Doc2Vec(vector_size=vec_size, alpha=alpha, min_alpha=0.00025, min_count=1, dm=1)
     model.build_vocab(tagged)
     print('Training started...')

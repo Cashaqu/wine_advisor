@@ -8,7 +8,16 @@ from tqdm import tqdm
 summarizer = TextRankSummarizer()
 
 
-def get_summary(text: str):
+def get_summary(text: str) -> str:
+    """
+    Summarize some sentence in text and return summary. Using TextRank algorithm.
+        Args:
+            text: Input text
+        Return:
+            Summary. For example:
+                "This is a sentence. That another one. One more. And one more" ->
+                "One more. And one more."
+    """
     sum_sent = ''
     parser = PlaintextParser.from_string(text, Tokenizer('english'))
     summary = summarizer(parser.document, 2)
@@ -17,7 +26,17 @@ def get_summary(text: str):
     return sum_sent
 
 
-def extracting_summary(path: str, is_saved=True):
+def extracting_summary(path: str, is_saved=True) -> list[str]:
+    """
+        Processes a list of descriptions and returns a list of summary for each description.
+            Args:
+                path: Path to the file in which the list of summary will be saved
+                is_saved: if True, list of summary will be saved
+            Return:
+                List of summary. For example:
+                    ["This is a sentence. That another one. One more. And one more", "...", ...] ->
+                    ["One more. And one more.", "...", ...]
+    """
     description_list = read_list(path)
     t = ExecutionTime()
     t.start()

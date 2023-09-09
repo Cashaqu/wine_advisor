@@ -1,7 +1,12 @@
 import time
+import pickle
 
 
 class ExecutionTime:
+
+    """
+    Class with functions for measuring execution time.
+    """
     def __init__(self):
         self.start_time = None
         self.end_time = None
@@ -18,13 +23,28 @@ class ExecutionTime:
         return self.exec_time
 
 
-import pickle
 def write_list(save_to_file: str, var):
+    """
+    Util for saving file from variable to file.
+        Args:
+            save_to_file: Path to saving file
+            var: variable for saving
+        Example:
+            write_list('./data/description', list_of_description)
+    """
     with open(save_to_file, 'wb') as fp:
         pickle.dump(var, fp)
 
-# Read list to memory
+
 def read_list(load_file: str):
+    """
+        Util for loading file to variable.
+            Args:
+                load_file: Path to load file
+
+            Example:
+                list_of_description = read_list('./data/description')
+    """
     with open(load_file, 'rb') as fp:
         n_list = pickle.load(fp)
         return n_list
