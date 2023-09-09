@@ -2,9 +2,12 @@ from extract_description import extract_description
 from preprocessing import cleaning_text
 from tagging import tagging
 from training import build_model
+from utils import read_list
+from summarization import extracting_summary
 
 if __name__ == '__main__':
     corpus = extract_description('./data/wine_reviews.csv', 'description')
-    clean_text = cleaning_text(corpus)
+    summary_text = extracting_summary('./data/description')
+    clean_text = cleaning_text(read_list('./data/summarization_text'))
     tagged_text = tagging(clean_text)
     model = build_model(max_epochs=10, vec_size=50, alpha=0.025, tagged=tagged_text)

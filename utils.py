@@ -16,3 +16,15 @@ class ExecutionTime:
 
     def get_exec_time(self):
         return self.exec_time
+
+
+import pickle
+def write_list(save_to_file: str, var):
+    with open(save_to_file, 'wb') as fp:
+        pickle.dump(var, fp)
+
+# Read list to memory
+def read_list(load_file: str):
+    with open(load_file, 'rb') as fp:
+        n_list = pickle.load(fp)
+        return n_list

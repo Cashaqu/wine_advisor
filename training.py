@@ -3,7 +3,7 @@ from datetime import datetime
 from utils import ExecutionTime
 
 
-def build_model(max_epochs, vec_size, alpha, tagged):
+def build_model(max_epochs, vec_size, alpha, tagged, is_saved=True):
     model = Doc2Vec(vector_size=vec_size, alpha=alpha, min_alpha=0.00025, min_count=1, dm=1)
     model.build_vocab(tagged)
     print('Training started...')
@@ -19,8 +19,8 @@ def build_model(max_epochs, vec_size, alpha, tagged):
         t.end()
         full_time += t.get_exec_time()
         print(f'Epoch: {epoch}; Execution time: {t.get_exec_time():.2f} sec')
-
-    model.save('./models/' + (datetime.utcnow().strftime('%Y_%m_%d_%H_%M_%S')) + '_doc2vec.model')
-    print(f'Training completed: {full_time:.2f} sec')
-    print("Model saved to ./models")
+        print(f'Training completed: {full_time:.2f} sec')
+    if is_saved:
+        model.save('./models/' + (datetime.utcnow().strftime('%Y_%m_%d_%H_%M_%S')) + '_doc2vec.model')
+        print("Model saved to ./models")
     return model

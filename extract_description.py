@@ -1,12 +1,16 @@
 import pandas as pd
-from utils import ExecutionTime
+from utils import ExecutionTime, write_list
 
 
-def extract_description(path_to_df: str, column: str):
-    print(f'Reading from {path_to_df}...')
+def extract_description(path_to_df: str, column: str, is_saved=True):
+    print(f'Reading description from {path_to_df}...')
     t = ExecutionTime()
     t.start()
     description = pd.read_csv(path_to_df, usecols=[column])
     t.end()
-    print(f'Reading completed in {t.get_exec_time():.2f} sec')
+    print(f'Reading of description completed in {t.get_exec_time():.2f} sec')
+    if is_saved:
+        path = './data/description'
+        write_list(path, description[column].tolist())
+        print(f'Description saved to {path}')
     return description[column].tolist()
