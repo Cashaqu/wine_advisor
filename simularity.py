@@ -2,6 +2,8 @@ from preprocessing import cleaning_text
 from gensim.models import Doc2Vec
 import pandas as pd
 from prettytable import PrettyTable
+
+
 def calc_sim(query: str) -> list[int]:
     """
     Function for calculating simular wines by query.
@@ -16,7 +18,8 @@ def calc_sim(query: str) -> list[int]:
     clean_query = cleaning_text([query])
     vector_query = model.infer_vector(clean_query[0])
     similar_sentences = model.dv.most_similar(positive=[vector_query])
-    return [int(similar_sentences[i][0]) for i in range(0,5)]
+    return [int(similar_sentences[i][0]) for i in range(0, 5)]
+
 
 def extract_simular_wine(sim_idx: list):
     """
@@ -24,23 +27,25 @@ def extract_simular_wine(sim_idx: list):
             Args:
                 sim_idx: List with 5 integer element (indexes of most simular wines in 'wine_reviews.csv')
             Return:
-                List with 5 integer element (indexes of most simular wines in 'wine_reviews.csv'). For example:
-                                            +-------+---------+--------+-------------+
-                                            | title | variety | points | description |
-                                            +-------+---------+--------+-------------+
-                                            |  ...  |   ...   |  ...   |     ...     |
-                                            |  ...  |   ...   |  ...   |     ...     |
-                                            |  ...  |   ...   |  ...   |     ...     |
-                                            |  ...  |   ...   |  ...   |     ...     |
-                                            +-------+---------+--------+-------------+
+                List with 5 integer elements (indexes of most simular wines in 'wine_reviews.csv'). For example:
+                                            +-------+---------+--------+-------+-------------+
+                                            | title | variety | points | price | description |
+                                            +-------+---------+--------+-------+-------------+
+                                            |  ...  |   ...   |  ...   |  ...  |     ...     |
+                                            |  ...  |   ...   |  ...   |  ...  |     ...     |
+                                            |  ...  |   ...   |  ...   |  ...  |     ...     |
+                                            |  ...  |   ...   |  ...   |  ...  |     ...     |
+                                            |  ...  |   ...   |  ...   |  ...  |     ...     |
+                                            +-------+---------+--------+-------+-------------+
     """
-    df = pd.read_csv('./data/wine_reviews.csv')
+    df = pd.read_csv('./data/cleaned_wine_reviews.csv')
     df_idx = df.iloc[sim_idx]
     x = PrettyTable()
-    x.field_names = ["title", "variety", "points", "description"]
+    x.field_names = ["title", "variety", "points", "price", "description"]
     for idx in df_idx.index:
         x.add_row([df_idx['title'][idx],
                    df_idx['variety'][idx],
                    df_idx['points'][idx],
+                   df_idx['price'][idx],
                    df_idx['description'][idx]])
     print(x)

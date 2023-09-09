@@ -37,11 +37,11 @@ def extracting_summary(path: str, is_saved=True) -> list[str]:
                     ["This is a sentence. That another one. One more. And one more", "...", ...] ->
                     ["One more. And one more.", "...", ...]
     """
+    print('Summarization started...')
     description_list = read_list(path)
     t = ExecutionTime()
     t.start()
     sum_description = []
-    print('Summarization started...')
     for description in tqdm(description_list):
         sum_description.append(get_summary(description))
     t.end()

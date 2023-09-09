@@ -22,6 +22,7 @@ def build_model(max_epochs, vec_size, alpha, tagged, is_saved=True):
     print('Training started...')
     t = ExecutionTime()
     full_time = 0
+
     for epoch in range(max_epochs):
         t.start()
         model.train(tagged,
@@ -32,7 +33,8 @@ def build_model(max_epochs, vec_size, alpha, tagged, is_saved=True):
         t.end()
         full_time += t.get_exec_time()
         print(f'Epoch: {epoch}; Execution time: {t.get_exec_time():.2f} sec')
-        print(f'Training completed: {full_time:.2f} sec')
+
+    print(f'Training completed: {full_time:.2f} sec')
     if is_saved:
         model.save('./models/' + (datetime.utcnow().strftime('%Y_%m_%d_%H_%M_%S')) + '_doc2vec.model')
         print("Model saved to ./models")
